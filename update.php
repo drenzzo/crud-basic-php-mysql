@@ -1,17 +1,18 @@
 <?php
 date_default_timezone_set('America/Lima');
 
-$id = $_GET['id'];
 $link = mysqli_connect('localhost', 'root', '', 'demo_crud');
-
-$query1 = "SELECT * FROM users WHERE id =".$id;
-
-if($result = mysqli_query($link, $query1)){
-	while($user = mysqli_fetch_assoc($result)){
-		$name = $user['name'];
-		$email = $user['email'];
-		$phone = $user['phone'];
+if(isset($_GET['id'])){
+	$id = $_GET['id'];
+	$query1 = "SELECT * FROM users WHERE id =".$id;
+	if($result = mysqli_query($link, $query1)){
+		while($user = mysqli_fetch_assoc($result)){
+			$name = $user['name'];
+			$email = $user['email'];
+			$phone = $user['phone'];
+		}
 	}
+
 }
 
 if(isset($_POST['sw']) == 1){
@@ -29,18 +30,28 @@ mysqli_close($link);
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Nuevo usuario</title>
+	<title>CRUD basico con PHP y MySQL</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-	<form action="update.php" method="post">
-		<label for="name">Nombre: </label><input type="text" name="name" value="<?php echo $name; ?>" /><br /><br />
-		<label for="email">Email: </label><input type="text" name="email" value="<?php echo $email; ?>" /><br /><br />
-		<label for="phone">Telefono: </label><input type="text" name="phone" value="<?php echo $phone; ?>" /><br /><br />
-		<input type="submit" name="actualizar" value="Actualizar" /><br />
-		<a href="index.php"><< Volver</a>
-		<input type="hidden" name="modified" value="<?php echo date("Y-m-d H:i:s", time()); ?>" />
-		<input type="hidden" name="id" value="<?php echo $id; ?>" />
-		<input type="hidden" name="sw" value="1" />
-	</form>
+	<div id="wrapper">
+		<h3>Editar usuario</h3>
+		<form action="update.php" method="post">
+			<label for="name">Nombre: </label><br />
+			<input type="text" name="name" value="<?php if(isset($name)) echo $name; ?>" /><br /><br />
+
+			<label for="email">Email: </label><br />
+			<input type="text" name="email" value="<?php if(isset($email)) echo $email; ?>" /><br /><br />
+
+			<label for="phone">Telefono: </label><br />
+			<input type="text" name="phone" value="<?php if(isset($phone)) echo $phone; ?>" /><br /><br />
+
+			<input class="btn-success" type="submit" name="actualizar" value="Actualizar" /><br /><br />
+			<a class="btn" href="index.php"><< Volver</a>
+			<input type="hidden" name="modified" value="<?php echo date("Y-m-d H:i:s", time()); ?>" />
+			<input type="hidden" name="id" value="<?php if(isset($id)) echo $id; ?>" />
+			<input type="hidden" name="sw" value="1" />
+		</form>
+	</div>
 </body>
 </html>

@@ -18,12 +18,23 @@ if($result = mysqli_query($link, $query)){
 
 mysqli_close($link);
 ?>
-<ul>
-	<li>ID: <?php echo $id ?></li>
-	<li>Nombre: <?php echo $name ?></li>
-	<li>Email: <?php echo $email ?></li>
-	<li>Telefono: <?php echo $phone ?></li>
-	<li>Fecha de creacion: <?php echo $created ?></li>
-	<li>Fecha de modificacion: <?php echo $modified ?></li>
-</ul>
-<a href="index.php"><< Volver</a>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CRUD basico con PHP y MySQL</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+	<div id="wrapper">
+		<ul>
+			<li>ID: <?php echo $id ?></li>
+			<li>Nombre: <?php echo $name ?></li>
+			<li>Email: <?php echo $email ?></li>
+			<li>Telefono: <?php echo $phone ?></li>
+			<li>Fecha de creacion: <?php echo $created ?></li>
+			<li>Fecha de modificacion: <?php echo $modified ?></li>
+		</ul>
+		<a class="btn" href="index.php"><< Volver</a>
+	</div>
+</body>
+</html>
