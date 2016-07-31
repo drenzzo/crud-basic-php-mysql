@@ -9,6 +9,6 @@ Este archivo contiene las instrucciones necesarias para crear la base de datos '
 
 Los archivo PHP contienen instrucciones básicas para hacer CRUD a la base de datos 'demo_crud'
 
-No se ha usado Javascript ni estilos CSS para abreviar la codificación.
+Se ha usado estilos basicos para mejorar la presentacion del ejemplo y se ha obviado el uso de Javascript para abreviar la codificación.
 
 La finalidad de este repositorio es solamente didáctico, no se recomienda usar esta codificación en ambientes de producción.
