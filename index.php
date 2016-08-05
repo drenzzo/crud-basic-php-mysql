@@ -1,5 +1,8 @@
 <?php 
+	//Conecto a mi base de datos
 	$link = mysqli_connect('localhost', 'root', '', 'demo_crud');
+
+	//Cadena de consulta que me devuelve todos los registros de la tabla 'users'
 	$query = "SELECT * FROM users";
 ?>
 <!DOCTYPE html>
@@ -25,8 +28,14 @@
 				</tr>
 			</thead>
 			<tbody>
-			<?php if($result = mysqli_query($link, $query)): ?>
-				<?php while($user = mysqli_fetch_assoc($result)): ?>
+			<?php 
+				//Ejecuto la query para obtener los resultados de la cadena de consulta en la variable $query
+				if($result = mysqli_query($link, $query)):  
+			?>
+				<?php 
+					//la variable $user contiene el contenido de $result en un array asociativo
+					while($user = mysqli_fetch_assoc($result)): 
+				?>
 					<tr>
 						<td width="5%" class="text-center"><?php echo $user['id']; ?></td>
 						<td width="20%"><a href="read.php?id=<?php echo $user['id'] ?>"><?php echo $user['name']; ?></a></td>
@@ -46,4 +55,7 @@
 	</div>
 </body>
 </html>
-<?php mysqli_close($link); ?>
+<?php 
+//cierro conexion a bbdd
+mysqli_close($link); 
+?>

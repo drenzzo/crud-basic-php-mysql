@@ -1,17 +1,27 @@
 <?php
+//establezco la zona horaria por defecto
 date_default_timezone_set('America/Lima');
+
+//si el formulario ha sido enviado procedo a ingresar contenido en la bbdd
 if(isset($_POST['sw']) == 1){
+
+	//conexion a bbdd
 	$link = mysqli_connect('localhost', 'root', '', 'demo_crud');
+
+	//Consulta de insercion. Se reciben los valores de los inputs del formulario enviados por POST
 	$query = "INSERT INTO users (id, name, email, phone, created) VALUES (0, '".$_POST['name']."', '".$_POST['email']."', '".$_POST['phone']."', '".$_POST['created']."' )";
-	if(mysqli_query($link, $query)){
+	if(mysqli_query($link, $query)){ // si la consulta se ejecuto con exito muestro mensaje y redirecciono a index.php
 		echo "La informacion se guardo con exito";
 		header('Location: index.php');
-	}else{
+	}else{ //si hubo error muestro mensaje de error
 		echo "Ocurrio un error al intentar guardar";
 	}
+
+	//cierro conexion a bbdd
 	mysqli_close($link);
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>

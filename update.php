@@ -1,13 +1,17 @@
 <?php
+//zona horaria por defecto
 date_default_timezone_set('America/Lima');
 
+//conexion a bbdd
 $link = mysqli_connect('localhost', 'root', '', 'demo_crud');
+
+//si existe "id" en la url 
 if(isset($_GET['id'])){
-	$id = $_GET['id'];
-	$query1 = "SELECT * FROM users WHERE id =".$id;
-	if($result = mysqli_query($link, $query1)){
-		while($user = mysqli_fetch_assoc($result)){
-			$name = $user['name'];
+	$id = $_GET['id'];//le asigno una variable 
+	$query1 = "SELECT * FROM users WHERE id =".$id; //cadena de consulta para el elemento $id
+	if($result = mysqli_query($link, $query1)){ //si obtengo resultados ejecutando la consulta anterior
+		while($user = mysqli_fetch_assoc($result)){ //asigno ese resultado a un array asociativo $user
+			$name = $user['name']; //creo variables con los nombres de los campos de la tabla "users" 
 			$email = $user['email'];
 			$phone = $user['phone'];
 		}
@@ -15,16 +19,19 @@ if(isset($_GET['id'])){
 
 }
 
-if(isset($_POST['sw']) == 1){
+if(isset($_POST['sw']) == 1){ //si se ha presionado el boton "Actualizar" 
+
+	//cadena con la orden de actualizacion a la tabla "users" con los valores de los inputs enviados por POST
 	$query2 = "UPDATE users SET name='".$_POST['name']."', email='".$_POST['email']."', phone='".$_POST['phone']."', modified='".$_POST['modified']."' WHERE id=".$_POST['id'];
-	echo $query2;
-	if(mysqli_query($link, $query2)){
-		echo "La informacion se actualizo con exito";
-		header('Location: index.php');
-	}else{
-		echo "Ocurrio un error al intentar actualizar";
+	if(mysqli_query($link, $query2)){ //si la consulta se ejecuta con exito
+		echo "La informacion se actualizo con exito"; //mensaje de exito
+		header('Location: index.php'); //redireccion a index.php
+	}else{ //si ocurrio un error
+		echo "Ocurrio un error al intentar actualizar"; //mensaje de error
 	}
 }
+
+//cierro conexion a bbdd
 mysqli_close($link);
 ?>
 <!DOCTYPE html>
